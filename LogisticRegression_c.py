@@ -15,7 +15,7 @@ X, y, labels = iris.data, iris.target, iris.target_names
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1, stratify=y)
 
 # 데이터 전처리(스케일 조정)
-scaler = RobustScaler()
+scaler = RobustScaler() # 어떤걸 쓰든 상관없는데 보통 쓰는 StandardScaler에 비해서 이상치(특이치)의 영향 
 X_train_std = scaler.fit_transform(X_train)
 X_test_std = scaler.transform(X_test)
 
