@@ -15,12 +15,12 @@ X, y, labels = iris.data, iris.target, iris.target_names
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1, stratify=y)
 
 # 데이터 전처리(스케일 조정)
-scaler = RobustScaler() # 어떤걸 쓰든 상관없는데 보통 쓰는 StandardScaler에 비해서 이상치(특이치)의 영향 
+scaler = RobustScaler() # 어떤걸 쓰든 상관없는데 보통 쓰는 StandardScaler에 비해서 이상치(특이치)의 영향 덜받음. (어떤걸 썼을때 정확도 높은지 비교해보자)
 X_train_std = scaler.fit_transform(X_train)
 X_test_std = scaler.transform(X_test)
 
 # 로지스틱 회귀 + 그리드서치로 모델 학습
-lg = LogisticRegression(solver='liblinear')
+lg = LogisticRegression() #solver='liblinear'
 param_grid = [{'C': np.linspace(0.1, 10, 100), 'penalty': ['l1', 'l2']}]
 gs = GridSearchCV(estimator=lg, param_grid=param_grid, scoring='accuracy', cv=5, n_jobs=-1)
 gs.fit(X_train_std, y_train)
